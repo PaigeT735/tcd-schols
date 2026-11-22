@@ -320,3 +320,26 @@ body {
   .md { font-size: 0.98rem; }
   .stat { grid-template-columns: 1fr; gap: 0; }
 }
+
+/* ==========================================================================
+   A little colour back: accent used for markers and numbers, not surfaces
+   ========================================================================== */
+.tab[aria-current='page']::after { background: var(--accent); }
+.qcard__num, .panel__num, .subtab__num { color: var(--accent); }
+.subtab[aria-current='page'] .subtab__num { color: var(--accent); font-weight: 600; }
+.toggle { color: var(--accent); }
+.toggle:hover { color: var(--ink-1); }
+.eyebrow { color: color-mix(in srgb, var(--accent) 80%, var(--ink-3)); }
+.section-head h2 { border-left: 3px solid var(--accent); padding-left: 12px; }
+.md ul > li::before { background: color-mix(in srgb, var(--accent) 70%, var(--ink-3)); }
+.md ol > li::before { color: var(--accent); }
+.md h5 { color: var(--accent); }
+.md h4 { color: var(--ink-1); }
+.stat__value { color: var(--accent); }
+.stats { border-top-color: color-mix(in srgb, var(--accent) 35%, var(--line-2)); }
+.md blockquote { background: color-mix(in srgb, var(--accent) 8%, var(--surface-2)); border-left: 3px solid color-mix(in srgb, var(--accent) 60%, transparent); }
+.qcard__prompt { border-left-color: color-mix(in srgb, var(--accent) 45%, var(--line-2)); }
+.contents a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.side__paper[aria-current='page'] { color: var(--ink-1); }
+.subject[data-active='true'] > .subject__btn { color: var(--accent); }
+.result__where { color: var(--accent); }

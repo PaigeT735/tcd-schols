@@ -6,6 +6,15 @@ import jan2026 from './business-p1/jan-2026.js';
 import mock2027 from './business-p1/mock-2027.js';
 import topicBank from './business-p1/topics.js';
 
+import p2guide from './business-p2/guide.js';
+import p2jan2022 from './business-p2/jan-2022.js';
+import p2jan2023 from './business-p2/jan-2023.js';
+import p2jan2025 from './business-p2/jan-2025.js';
+import p2jan2026 from './business-p2/jan-2026.js';
+import p2mock2027 from './business-p2/mock-2027.js';
+
+import mockSections from './business-p2-mock/index.js';
+
 export const SITE = { title: 'Schols Revision' };
 
 /**
@@ -29,10 +38,14 @@ export const SUBJECTS = [
       {
         id: 'p2',
         label: 'Paper 2',
-        title: 'Business Paper 2',
-        summary: 'The second Business Schols paper. In the current requirements it examines **sustainable development** directly, which may be why Paper 1 has stopped asking climate questions since 2021.',
-        empty: 'No Paper 2 papers yet. Send them over and each sitting will appear as a tab here, with the same dense intro, three-point and conclusion plans as Paper 1.',
-        sittings: [],
+        title: 'Business Paper 2: Sustainable Development and Management',
+        sittings: [p2guide, p2jan2022, p2jan2023, p2jan2025, p2jan2026, p2mock2027],
+      },
+      {
+        id: 'p2-mock',
+        label: 'P2 Mock Exam',
+        title: 'Business Paper 2 Mock Exam: twelve sections of notes',
+        sittings: mockSections,
       },
     ],
   },

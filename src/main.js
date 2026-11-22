@@ -53,7 +53,9 @@ function renderSidebar(route) {
         <div class="side__papers"><ul>
           ${s.papers.map((p) => {
             const n = p.sittings.filter((x) => x.kind === 'paper' || x.kind === 'mock').length;
-            return `<li><a class="side__paper" href="${href(s, p, p.sittings[0])}" ${active && p === route.paper ? 'aria-current="page"' : ''}>${p.label}<span class="side__paper-count">${n ? `${n} paper${n > 1 ? 's' : ''}` : 'empty'}</span></a></li>`;
+            const notes = p.sittings.filter((x) => x.kind === 'notes').length;
+            const count = n ? `${n} paper${n > 1 ? 's' : ''}` : notes ? `${notes} sections` : 'empty';
+            return `<li><a class="side__paper" href="${href(s, p, p.sittings[0])}" ${active && p === route.paper ? 'aria-current="page"' : ''}>${p.label}<span class="side__paper-count">${count}</span></a></li>`;
           }).join('')}
         </ul></div>
       </div>`;
@@ -70,27 +72,31 @@ function renderTop(route) {
   const sub = $('#subtabs');
   sub.hidden = !paper.sittings.length;
   sub.innerHTML = paper.sittings
-    .map((t) => `<a class="subtab" href="${href(subject, paper, t)}" ${t === sitting ? 'aria-current="page"' : ''}><span class="subtab__dot"></span>${t.label}</a>`)
+    .map((t) => `<a class="subtab" href="${href(subject, paper, t)}" ${t === sitting ? 'aria-current="page"' : ''}>${t.num ? `<span class="subtab__num">${t.num}</span>` : ''}${t.label}</a>`)
     .join('');
   $('[aria-current="page"]', sub)?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-  document.documentElement.style.setProperty('--top-h', paper.sittings.length ? '112px' : '60px');
+  document.documentElement.style.setProperty('--top-h', paper.sittings.length ? '104px' : '56px');
 }
 
 /* ==========================================================================
    Page renderers
    ========================================================================== */
-const chip = (text, cls = '') => `<span class="chip ${cls}">${inline(text)}</span>`;
-
 function hero(route, extra = '') {
   const { subject, paper, sitting } = route;
+  const crumbs = [subject.label, paper.label, sitting?.label].filter(Boolean).join(' · ');
   return `<header class="hero">
-    <p class="eyebrow"><span>${subject.label}</span><span>${paper.label}</span>${sitting ? `<span>${sitting.label}</span>` : ''}</p>
+    <p class="eyebrow">${inline(crumbs)}</p>
     <h1>${inline(sitting?.title ?? paper.title)}</h1>
     ${sitting?.summary || (!sitting && paper.summary) ? `<div class="hero__summary md">${md(sitting?.summary ?? paper.summary)}</div>` : ''}
-    ${sitting?.meta?.length ? `<div class="chips">${sitting.meta.map(([k, v]) => `<span class="chip">${inline(k)}: <strong>${inline(v)}</strong></span>`).join('')}</div>` : ''}
+    ${sitting?.meta?.length ? `<p class="hero__meta">${sitting.meta.map(([k, v]) => `<span>${inline(k)}: <strong>${inline(v)}</strong></span>`).join('')}</p>` : ''}
     ${extra}
   </header>`;
 }
+
+const contents = (items, label = 'On this page') =>
+  `<nav class="contents"><span class="contents__label">${label}:</span>${items
+    .map(([href, text]) => `<a href="${href}" data-jump>${inline(text)}</a>`)
+    .join('<span class="contents__sep">/</span>')}</nav>`;
 
 function questionCard(route, q) {
   const { subject, paper, sitting } = route;
@@ -103,12 +109,12 @@ function questionCard(route, q) {
     <div class="qcard__head">
       <div class="qcard__meta">
         <span class="qcard__num">${q.label ?? `Question ${q.n}`}</span>
-        ${q.paraphrased ? chip('Wording paraphrased', 'chip--warn') : ''}
+        ${q.paraphrased ? '<span class="note-inline">wording paraphrased</span>' : ''}
         <a class="qcard__link" href="${href(subject, paper, sitting, q.id)}" data-copy>${icons.link}Link</a>
       </div>
       <h2 class="qcard__title">${inline(q.title)}</h2>
       ${q.prompt ? `<div class="qcard__prompt md">${md(q.prompt)}</div>` : ''}
-      ${q.tags?.length ? `<div class="qcard__tags">${q.tags.map((t) => chip(t, 'chip--accent')).join('')}</div>` : ''}
+      ${q.tags?.length ? `<p class="qcard__tags">${q.tags.map((t) => inline(t)).join(', ')}</p>` : ''}
     </div>
     <button class="toggle" type="button" data-toggle aria-expanded="false" aria-controls="${id}-body">
       <span data-toggle-label>Show essay plan</span><span class="toggle__hint">${views.map((v) => v[1].toLowerCase()).join(' · ')}</span><span class="toggle__chev">${icons.down}</span>
@@ -142,33 +148,48 @@ function renderPage(route) {
     page.innerHTML = hero(route) + `<div class="empty glass"><h2>No papers here yet</h2>${md(paper.empty ?? 'Send the papers over and they will appear as tabs here, in the same format as Business Paper 1.')}</div>`;
     return;
   }
-  if (sitting.kind === 'guide') {
+  if (sitting.kind === 'guide' || sitting.kind === 'notes') {
+    const numbered = sitting.kind === 'notes';
     page.innerHTML =
       hero(route) +
-      `<div class="chips" style="margin:-10px 0 18px">${sitting.sections.map((s) => `<a class="chip" href="#${sitting.id}-${s.id}" data-jump>${inline(s.title)}</a>`).join('')}</div>` +
-      sitting.sections.map((s) => `<section class="panel glass" id="${sitting.id}-${s.id}"><h2 class="panel__title">${inline(s.title)}</h2><div class="md">${md(s.md)}</div></section>`).join('');
+      contents(sitting.sections.map((s, i) => [`#${sitting.id}-${s.id}`, (numbered ? `${i + 1}. ` : '') + s.title])) +
+      sitting.sections
+        .map((s, i) => `<section class="panel" id="${sitting.id}-${s.id}"><h2 class="panel__title">${numbered ? `<span class="panel__num">${i + 1}</span>` : ''}${inline(s.title)}</h2><div class="md">${md(s.md)}</div></section>`)
+        .join('');
     return;
   }
   if (sitting.kind === 'topics') {
     page.innerHTML =
       hero(route) +
-      `<div class="chips" style="margin:-10px 0 4px">${sitting.groups.map((g) => `<a class="chip" href="#${sitting.id}-${g.id}" data-jump>${inline(g.title)}</a>`).join('')}</div>` +
+      contents(sitting.groups.map((g) => [`#${sitting.id}-${g.id}`, g.title])) +
       `<div class="toolbar"><span class="toolbar__title">${sitting.groups.reduce((n, g) => n + g.topics.length, 0)} fact files</span><button class="btn" data-expand="open">Open all</button><button class="btn" data-expand="close">Close all</button></div>` +
       sitting.groups
         .map(
           (g) => `<div class="section-head" id="${sitting.id}-${g.id}"><h2>${inline(g.title)}</h2></div>
           ${g.intro ? `<div class="section-intro md">${md(g.intro)}</div>` : ''}
           <div class="qlist">${g.topics.map((t) => topicCard(route, g, t)).join('')}</div>
-          ${g.extra ? `<section class="panel glass" style="margin-top:14px"><div class="md">${md(g.extra)}</div></section>` : ''}`
+          ${g.extra ? `<div class="md" style="margin-top:18px">${md(g.extra)}</div>` : ''}`
         )
         .join('');
     return;
   }
+  // Questions may be grouped into sections (e.g. Section A / Section B)
+  const groups = [];
+  for (const q of sitting.questions) {
+    const key = q.section ?? '';
+    if (!groups.length || groups[groups.length - 1].key !== key) groups.push({ key, qs: [] });
+    groups[groups.length - 1].qs.push(q);
+  }
+  const intros = sitting.sectionNotes ?? {};
   page.innerHTML =
     hero(route) +
-    (sitting.notes ? `<section class="panel glass"><div class="md">${md(sitting.notes)}</div></section>` : '') +
-    `<div class="toolbar"><span class="toolbar__title">${sitting.questions.length} questions · answer two</span><button class="btn" data-expand="open">Open all</button><button class="btn" data-expand="close">Close all</button></div>
-    <div class="qlist">${sitting.questions.map((q) => questionCard(route, q)).join('')}</div>`;
+    (sitting.notes ? `<div class="md" style="margin-bottom:28px">${md(sitting.notes)}</div>` : '') +
+    `<div class="toolbar"><span class="toolbar__title">${sitting.questions.length} questions · ${sitting.answer ?? 'answer two'}</span><button class="btn" data-expand="open">Open all</button><button class="btn" data-expand="close">Close all</button></div>` +
+    groups
+      .map((g) =>
+        (g.key ? `<div class="section-head"><h2>${inline(g.key)}</h2>${intros[g.key] ? `<p>${inline(intros[g.key])}</p>` : ''}</div>` : '') +
+        `<div class="qlist">${g.qs.map((q) => questionCard(route, q)).join('')}</div>`)
+      .join('');
 }
 
 /* ==========================================================================

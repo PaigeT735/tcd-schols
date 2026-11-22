@@ -1,6 +1,6 @@
 /* ==========================================================================
    Design tokens
-   Warm graphite base, translucent glass layers, restrained section accents.
+   Warm paper-grey base, flat surfaces, one restrained accent per subject.
    ========================================================================== */
 
 @font-face { font-family: 'Figtree'; src: url('../fonts/figtree-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
@@ -116,10 +116,12 @@
   --mark-line-1: #9b5a2f;
   --mark-line-2: #b9a58f;
   --mark-dot: #ffffff;
-  --atmos:
-    radial-gradient(60vw 50vh at 10% 0%, rgba(255, 255, 255, 0.28), transparent 70%),
-    radial-gradient(50vw 50vh at 90% 100%, rgba(200, 196, 188, 0.22), transparent 70%),
-    linear-gradient(180deg, #eae9e6 0%, #e3e2df 100%);
+  --atmos: none;
+  /* Flat surfaces (no glass) */
+  --surface: #efeeeb;
+  --surface-2: #e4e3e0;
+  --side-bg: #e3e2df;
+  --top-bg: #e8e7e4;
 }
 
 /* ---------- Dark theme: deep night-blue glass ---------- */
@@ -187,10 +189,11 @@
   --mark-line-1: #d6d6da;
   --mark-line-2: #8f8f95;
   --mark-dot: #0c0c0d;
-  --atmos:
-    radial-gradient(55vw 50vh at 8% 0%, rgba(255, 255, 255, 0.06), transparent 70%),
-    radial-gradient(45vw 45vh at 96% 100%, rgba(255, 255, 255, 0.04), transparent 70%),
-    linear-gradient(180deg, #111112 0%, #0b0b0c 100%);
+  --atmos: none;
+  --surface: #141415;
+  --surface-2: #1b1b1d;
+  --side-bg: #101011;
+  --top-bg: #0c0c0d;
 }
 
 [data-accent='business'] { --accent: var(--accent-business); }

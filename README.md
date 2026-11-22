@@ -3,8 +3,9 @@
 TCD Foundation Scholarship revision site: past Schols papers for **Business** and **Economics**, with dense essay plans (introduction, three main points, conclusion, all in bullets) and an evidence bank for every question.
 
 - **Sidebar:** Business / Economics (collapsible).
-- **Top tabs:** Business Paper 1 · Paper 2, Economics Paper 1 · Paper 4.
-- **Second row:** one tab per sitting (e.g. Jan 2023), plus the exam guide, the predicted mock and the 2026 topic bank.
+- **Top tabs:** Business Paper 1 · Paper 2 · P2 Mock Exam, Economics Paper 1 · Paper 4.
+- **Second row:** one tab per sitting (e.g. Jan 2023), plus the exam guide and the predicted mock. Paper 1 also has the 2026 topic bank.
+- **P2 Mock Exam:** twelve tabs of exam notes for Business Paper 2, one per predicted section (teams, systems, worldviews, leadership, AI, strategy, critiques, greenwashing, position statements, decision-making, planetary boundaries, culture and structure).
 
 Plain HTML, CSS and JavaScript modules; no build step.
 
@@ -36,6 +37,12 @@ The site goes live at `https://paiget735.github.io/tcd-schols/`.
    - Every `plan` uses the headings `## Introduction`, `## Main point 1 — …`, `## Main point 2 — …`, `## Main point 3 — …`, `## Conclusion`.
 2. Import it in `src/content/index.js` and add it to that paper's `sittings` array.
 3. Run `node scripts/check-content.mjs`.
+
+Questions can be grouped under section headings (as in the Paper 2 Jan 2026 tab) by giving each question a `section` string; optional one-line descriptions go in the sitting's `sectionNotes`.
+
+## Adding a notes tab
+
+Notes tabs (like the P2 Mock Exam) use `kind: 'notes'` with a `num`, `label`, `title`, `summary`, `meta` and a `sections` array of `{ id, title, md }`. See `src/content/business-p2-mock/`.
 
 ### Markdown supported
 

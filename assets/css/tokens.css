@@ -20,9 +20,9 @@
   --bg-sunken: #dfdedb;
 
   /* Ink: deep navy rather than black */
-  --ink-1: #1e1e21;
-  --ink-2: #46464c;
-  --ink-3: #6c6c73;
+  --ink-1: #2b2b2f;
+  --ink-2: #4d4d53;
+  --ink-3: #6e6e75;
   --ink-4: #97979d;
 
   /* Hairlines */
@@ -118,9 +118,9 @@
   --mark-dot: #ffffff;
   --atmos: none;
   /* Flat surfaces (no glass) */
-  --surface: #efeeeb;
+  --surface: #ecebe7;
   --surface-2: #e4e3e0;
-  --side-bg: #e3e2df;
+  --side-bg: #e2e1dd;
   --top-bg: #e8e7e4;
 }
 
@@ -128,14 +128,14 @@
 :root[data-theme='dark'] {
   color-scheme: dark;
   /* Neutral graphite: near-black with soft greys, colour only in the accents */
-  --bg: #0c0c0d;
-  --bg-raise: #141415;
-  --bg-sunken: #080808;
+  --bg: #1a1a1c;
+  --bg-raise: #202023;
+  --bg-sunken: #151517;
 
-  --ink-1: #ededee;
-  --ink-2: #bdbdc1;
-  --ink-3: #8f8f95;
-  --ink-4: #636368;
+  --ink-1: #dcdcdf;
+  --ink-2: #b2b2b8;
+  --ink-3: #8e8e95;
+  --ink-4: #6c6c72;
 
   --line-1: rgba(255, 255, 255, 0.07);
   --line-2: rgba(255, 255, 255, 0.11);
@@ -158,9 +158,9 @@
   --accent-games: #9db7f2;
   --accent-welfare: #e2c878;
   --accent-general: #b9b9bf;
-  --accent-business: #e3a97c;
+  --accent-business: #d9a47c;
   --accent-econ: #7fcdb3;
-  --accent: #e3a97c;
+  --accent: #d9a47c;
 
   --clue: #e5bd6c;
   --trap: #ef8f82;
@@ -173,8 +173,8 @@
   --edge-hi: rgba(255, 255, 255, 0.22);
   --pressed: rgba(255, 255, 255, 0.13);
   --card-open: linear-gradient(160deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04));
-  --drawer-bg: rgba(16, 16, 17, 0.95);
-  --popover: rgba(22, 22, 23, 0.97);
+  --drawer-bg: rgba(24, 24, 26, 0.97);
+  --popover: rgba(36, 36, 40, 0.98);
   --thead-bg: rgba(255, 255, 255, 0.05);
   --sticky-th: #151516;
   --scrim: rgba(0, 0, 0, 0.55);
@@ -190,10 +190,10 @@
   --mark-line-2: #8f8f95;
   --mark-dot: #0c0c0d;
   --atmos: none;
-  --surface: #141415;
-  --surface-2: #1b1b1d;
-  --side-bg: #101011;
-  --top-bg: #0c0c0d;
+  --surface: #212124;
+  --surface-2: #28282c;
+  --side-bg: #161618;
+  --top-bg: #1a1a1c;
 }
 
 [data-accent='business'] { --accent: var(--accent-business); }

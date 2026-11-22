@@ -264,7 +264,7 @@ function paintTheme() {
   const dark = document.documentElement.dataset.theme === 'dark';
   $('#theme').innerHTML = dark ? icons.sun : icons.moon;
   $('#theme').setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#0c0c0d' : '#e8e7e4');
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#1a1a1c' : '#e8e7e4');
 }
 $('#theme').addEventListener('click', () => {
   const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';

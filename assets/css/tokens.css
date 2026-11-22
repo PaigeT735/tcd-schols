@@ -1,0 +1,211 @@
+/* ==========================================================================
+   Design tokens
+   Warm graphite base, translucent glass layers, restrained section accents.
+   ========================================================================== */
+
+@font-face { font-family: 'Figtree'; src: url('../fonts/figtree-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Figtree'; src: url('../fonts/figtree-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Figtree'; src: url('../fonts/figtree-latin-600-normal.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Newsreader'; src: url('../fonts/newsreader-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Newsreader'; src: url('../fonts/newsreader-latin-400-italic.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Newsreader'; src: url('../fonts/newsreader-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Newsreader'; src: url('../fonts/newsreader-latin-500-italic.woff2') format('woff2'); font-weight: 500; font-style: italic; font-display: swap; }
+
+:root {
+  color-scheme: light;
+
+  /* Base: pale sky, layered with soft colour pools (see base.css) */
+  --bg: #e8e7e4;
+  --bg-raise: #eeedea;
+  --bg-sunken: #dfdedb;
+
+  /* Ink: deep navy rather than black */
+  --ink-1: #1e1e21;
+  --ink-2: #46464c;
+  --ink-3: #6c6c73;
+  --ink-4: #97979d;
+
+  /* Hairlines */
+  --line-1: rgba(30, 28, 25, 0.09);
+  --line-2: rgba(30, 28, 25, 0.14);
+  --line-3: rgba(30, 28, 25, 0.22);
+
+  /* Frosted glass */
+  --glass-chrome: rgba(234, 233, 230, 0.78);
+  --glass-panel: linear-gradient(160deg, rgba(243, 242, 239, 0.7) 0%, rgba(238, 237, 234, 0.5) 100%);
+  --glass-panel-solid: #efeeeb;
+  --glass-edge: rgba(255, 255, 255, 0.4);
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  --glass-shadow: 0 1px 2px rgba(40, 36, 30, 0.05), 0 12px 32px -18px rgba(40, 36, 30, 0.22);
+  --inset: rgba(242, 241, 238, 0.75);
+  --blur: saturate(170%) blur(20px);
+
+  /* Section accents: calm, ink-strength so they read on light glass */
+  --accent-consumer: #2c8a71;
+  --accent-production: #2f6db3;
+  --accent-costs: #6f5bc2;
+  --accent-competition: #137f95;
+  --accent-monopoly: #bf5468;
+  --accent-oligopoly: #8455b3;
+  --accent-games: #3a6cd3;
+  --accent-welfare: #9a7413;
+  --accent-general: #56677f;
+  --accent-business: #9b5a2f;
+  --accent-econ: #2a7a63;
+  --accent: #9b5a2f; /* default, overridden per subject */
+
+  /* Semantic */
+  --clue: #a06a1c;
+  --trap: #b4473a;
+  --ok: #2a7a63;
+
+  /* Type */
+  --font-sans: 'Figtree', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Figtree', ui-sans-serif, system-ui, sans-serif; /* labels use tabular figures, not a code font */
+  --font-serif: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+
+  --fs-xs: 0.8rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1.03rem;
+  --fs-md: 1.1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.625rem;
+  --fs-2xl: clamp(2.1rem, 3.4vw, 2.9rem);
+  --fs-3xl: clamp(2.6rem, 5.4vw, 4.1rem);
+
+  /* Space (4px grid) */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 20px;
+  --s-6: 24px; --s-8: 32px; --s-10: 40px; --s-12: 48px; --s-16: 64px; --s-20: 80px;
+
+  /* Radii */
+  --r-xs: 6px;
+  --r-sm: 9px;
+  --r-md: 14px;
+  --r-lg: 18px;
+
+  /* Layout */
+  --sidebar-w: 284px;
+  --topbar-h: 62px;
+  --subnav-h: 0px;
+  --content-max: 980px;
+  --toc-w: 216px;
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* Theme plumbing (overridden in dark mode) */
+  --glass-rgb: 243, 242, 239;
+  --glass-k: 0.9;
+  --shadow-rgb: 40, 36, 30;
+  --shadow-k: 1;
+  --edge-hi: rgba(255, 255, 255, 0.5);
+  --pressed: #f1f0ed;
+  --card-open: linear-gradient(160deg, rgba(243, 242, 239, 0.82), rgba(238, 237, 234, 0.62));
+  --drawer-bg: rgba(236, 235, 232, 0.95);
+  --popover: rgba(239, 238, 235, 0.97);
+  --thead-bg: rgba(222, 221, 217, 0.6);
+  --sticky-th: #e9e8e5;
+  --scrim: rgba(30, 28, 25, 0.22);
+  --thumb: rgba(30, 28, 25, 0.16);
+  --thumb-hover: rgba(30, 28, 25, 0.28);
+  --brand-strong: #2b2b2f;
+  --brand-strong-2: #1e1e21;
+  --brand-on: #ffffff;
+  --brand-ink: #2b2b2f;
+  --highlight: rgba(155, 90, 47, 0.2);
+  --mark-bg: rgba(242, 241, 238, 0.7);
+  --mark-line-1: #9b5a2f;
+  --mark-line-2: #b9a58f;
+  --mark-dot: #ffffff;
+  --atmos:
+    radial-gradient(60vw 50vh at 10% 0%, rgba(255, 255, 255, 0.28), transparent 70%),
+    radial-gradient(50vw 50vh at 90% 100%, rgba(200, 196, 188, 0.22), transparent 70%),
+    linear-gradient(180deg, #eae9e6 0%, #e3e2df 100%);
+}
+
+/* ---------- Dark theme: deep night-blue glass ---------- */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  /* Neutral graphite: near-black with soft greys, colour only in the accents */
+  --bg: #0c0c0d;
+  --bg-raise: #141415;
+  --bg-sunken: #080808;
+
+  --ink-1: #ededee;
+  --ink-2: #bdbdc1;
+  --ink-3: #8f8f95;
+  --ink-4: #636368;
+
+  --line-1: rgba(255, 255, 255, 0.07);
+  --line-2: rgba(255, 255, 255, 0.11);
+  --line-3: rgba(255, 255, 255, 0.2);
+
+  --glass-chrome: rgba(14, 14, 15, 0.7);
+  --glass-panel: linear-gradient(160deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 100%);
+  --glass-panel-solid: #161617;
+  --glass-edge: rgba(255, 255, 255, 0.1);
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --glass-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 14px 36px -18px rgba(0, 0, 0, 0.8);
+  --inset: rgba(0, 0, 0, 0.42);
+
+  --accent-consumer: #7fcdb3;
+  --accent-production: #8fb6ea;
+  --accent-costs: #b3a8ec;
+  --accent-competition: #74c6d2;
+  --accent-monopoly: #ee9aa8;
+  --accent-oligopoly: #c9a6e8;
+  --accent-games: #9db7f2;
+  --accent-welfare: #e2c878;
+  --accent-general: #b9b9bf;
+  --accent-business: #e3a97c;
+  --accent-econ: #7fcdb3;
+  --accent: #e3a97c;
+
+  --clue: #e5bd6c;
+  --trap: #ef8f82;
+  --ok: #7fcdb3;
+
+  --glass-rgb: 255, 255, 255;
+  --glass-k: 0.1;
+  --shadow-rgb: 0, 0, 0;
+  --shadow-k: 2.4;
+  --edge-hi: rgba(255, 255, 255, 0.22);
+  --pressed: rgba(255, 255, 255, 0.13);
+  --card-open: linear-gradient(160deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04));
+  --drawer-bg: rgba(16, 16, 17, 0.95);
+  --popover: rgba(22, 22, 23, 0.97);
+  --thead-bg: rgba(255, 255, 255, 0.05);
+  --sticky-th: #151516;
+  --scrim: rgba(0, 0, 0, 0.55);
+  --thumb: rgba(255, 255, 255, 0.14);
+  --thumb-hover: rgba(255, 255, 255, 0.26);
+  --brand-strong: #ececee;
+  --brand-strong-2: #ffffff;
+  --brand-on: #111112;
+  --brand-ink: #f2f2f3;
+  --highlight: rgba(255, 255, 255, 0.16);
+  --mark-bg: rgba(255, 255, 255, 0.06);
+  --mark-line-1: #d6d6da;
+  --mark-line-2: #8f8f95;
+  --mark-dot: #0c0c0d;
+  --atmos:
+    radial-gradient(55vw 50vh at 8% 0%, rgba(255, 255, 255, 0.06), transparent 70%),
+    radial-gradient(45vw 45vh at 96% 100%, rgba(255, 255, 255, 0.04), transparent 70%),
+    linear-gradient(180deg, #111112 0%, #0b0b0c 100%);
+}
+
+[data-accent='business'] { --accent: var(--accent-business); }
+[data-accent='econ'] { --accent: var(--accent-econ); }
+[data-accent='consumer'] { --accent: var(--accent-consumer); }
+[data-accent='production'] { --accent: var(--accent-production); }
+[data-accent='costs'] { --accent: var(--accent-costs); }
+[data-accent='competition'] { --accent: var(--accent-competition); }
+[data-accent='monopoly'] { --accent: var(--accent-monopoly); }
+[data-accent='oligopoly'] { --accent: var(--accent-oligopoly); }
+[data-accent='games'] { --accent: var(--accent-games); }
+[data-accent='welfare'] { --accent: var(--accent-welfare); }
+[data-accent='general'] { --accent: var(--accent-general); }
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --ease: linear; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

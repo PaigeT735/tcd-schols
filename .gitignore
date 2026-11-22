@@ -1,0 +1,6 @@
+node_modules/
+.DS_Store
+_site/
+
+# Source notes used to generate the topic bank (kept private)
+raw/
